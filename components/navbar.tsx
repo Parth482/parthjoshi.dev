@@ -26,6 +26,27 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  const handleMobileNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault()
+    setIsMobileMenuOpen(false) 
+
+    setTimeout(() => {
+      const targetId = href.replace("#", "")
+      const element = document.getElementById(targetId)
+
+      if (element) {
+        const headerOffset = 80
+        const elementPosition = element.getBoundingClientRect().top
+        const offsetPosition = elementPosition + window.scrollY - headerOffset
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        })
+      }
+    }, 300)
+  }
+
   return (
     <motion.header
       initial={{ y: -100 }}
@@ -43,6 +64,7 @@ export default function Navbar() {
           className="text-lg sm:text-xl font-bold text-foreground"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          onClick={(e) => handleMobileNavClick(e, "#")}
         >
           <span className="text-primary">{"<"}</span>
           PJ
@@ -59,6 +81,16 @@ export default function Navbar() {
             >
               <a
                 href={link.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  const element = document.getElementById(link.href.replace("#", ""));
+                  if (element) {
+                    const headerOffset = 80;
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.scrollY - headerOffset;
+                    window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                  }
+                }}
                 className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 relative group"
               >
                 {link.name}
@@ -108,8 +140,8 @@ export default function Navbar() {
             <li key={link.name}>
               <a
                 href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block text-muted-foreground hover:text-primary transition-colors duration-200"
+                onClick={(e) => handleMobileNavClick(e, link.href)} 
+                className="block text-muted-foreground hover:text-primary transition-colors duration-200 text-lg font-medium py-2"
               >
                 {link.name}
               </a>
@@ -122,7 +154,7 @@ export default function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center gap-2 text-primary font-medium hover:text-primary/80 transition-colors duration-200"
+              className="flex items-center gap-2 text-primary font-medium hover:text-primary/80 transition-colors duration-200 pt-2"
             >
               <Download size={16} />
               Download Resume
