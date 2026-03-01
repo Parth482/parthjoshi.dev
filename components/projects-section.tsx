@@ -19,7 +19,7 @@ const featuredProjects = [
     description: "A real-time collaborative whiteboard built using React, Socket.IO, and Node.js. Users can draw, erase, undo/redo strokes, and collaborate in real-time within rooms using socket-based communication.",
     tech: ["React", "Node.js", "Express.js", "Socket.io", "HTML5 Canvas", "MongoDB"],
     github: "https://github.com/Parth482/Collaborative-Whiteboard",
-    live: "https://github.com/Parth482/Collaborative-Whiteboard",
+    live: "https://collaborative-whiteboard-tau-bay.vercel.app",
     image: "/collabboard.png"
   },
   {
