@@ -48,8 +48,10 @@ export function ExperienceSection() {
                   </li>
                   <li className="flex gap-3">
                     <span className="text-hazard-orange font-bold">▹</span>
-                    Actively developing a facility management system from scratch, involving both mobile and
-                    web application components, under guided supervision.
+                                        Building a full-stack tradie marketplace platform (Fixes) connecting customers with
+                    skilled tradespeople — featuring AI-powered job quoting, real-time job matching, and
+                    role-based mobile/web apps for both hirers and service providers.
+
                   </li>
                 </ul>
               </motion.article>

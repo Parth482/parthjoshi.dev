@@ -20,9 +20,10 @@ const PROJECTS: Project[] = [
     title: "On-Demand Services Platform",
     image: onDemandImg,
     alt: "Mobile app dashboard with live map and job dispatch card",
-    body: "Real-time job dispatch with cross-platform mobile and web clients. Live location updates streamed from dispatch through completion, with role-based access for service providers and customers.",
+    body: "Trades marketplace connecting customers with verified tradies. AI-powered instant job quotes, real-time job dispatch and tracking, secure payments on completion, with dedicated mobile and web experiences for both hirers and service providers.",
+
     tag: "In Production",
-    stack: ["React Native", "Next.js", "Node.js", "WebSockets", "Geo APIs"],
+    stack: ["React Native", "Next.js", "Node.js", "Redis", "WebSockets", "Geo APIs"],
   },
   {
     title: "Collaborative Whiteboard",
