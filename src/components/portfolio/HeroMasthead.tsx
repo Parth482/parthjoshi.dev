@@ -45,7 +45,7 @@ export function HeroMasthead() {
           >
             <span className="text-xs font-medium uppercase tracking-[0.2em] text-hazard-yellow">Issue 02 / 2025</span>
             <p className="text-lg font-medium">Full-Stack Developer</p>
-            <p className="text-sm text-paper/60">Web, mobile and Web3 systems engineered from Gujarat, IN.</p>
+            <p className="text-sm text-paper/60">If it has a server, a wallet, or an app store link, I can architect it.</p>
           </motion.div>
         </div>
       </div>
