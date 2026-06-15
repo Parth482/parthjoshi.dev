@@ -1,0 +1,126 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-hazard-orange: var(--hazard-orange);
+  --color-hazard-yellow: var(--hazard-yellow);
+
+  --font-heading: var(--font-heading-family);
+  --font-body: var(--font-body-family);
+}
+
+:root {
+  --radius: 0.25rem;
+
+  /* Brutalist Pop palette */
+  --paper: #ffffff;
+  --ink: #0a0a0a;
+  --hazard-orange: #ff5722;
+  --hazard-yellow: #ffeb3b;
+
+  --font-heading-family: "Sora", system-ui, sans-serif;
+  --font-body-family: "Manrope", system-ui, sans-serif;
+
+  /* shadcn baseline (kept so any ui/* component still renders) */
+  --background: var(--ink);
+  --foreground: var(--paper);
+  --card: var(--ink);
+  --card-foreground: var(--paper);
+  --popover: var(--ink);
+  --popover-foreground: var(--paper);
+  --primary: var(--hazard-orange);
+  --primary-foreground: var(--paper);
+  --secondary: oklch(0.2 0 0);
+  --secondary-foreground: var(--paper);
+  --muted: oklch(0.2 0 0);
+  --muted-foreground: oklch(0.7 0 0);
+  --accent: var(--hazard-yellow);
+  --accent-foreground: var(--ink);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: var(--paper);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: var(--hazard-orange);
+}
+
+@utility hazard-stripe {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--hazard-yellow),
+    var(--hazard-yellow) 20px,
+    var(--hazard-orange) 20px,
+    var(--hazard-orange) 40px
+  );
+}
+
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@utility animate-ticker {
+  animation: ticker 30s linear infinite;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    background-color: var(--ink);
+  }
+
+  body {
+    background-color: var(--ink);
+    color: var(--paper);
+    font-family: var(--font-body-family);
+    -webkit-font-smoothing: antialiased;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  ::selection {
+    background-color: var(--hazard-orange);
+    color: var(--paper);
+  }
+}
