@@ -124,3 +124,12 @@
     color: var(--paper);
   }
 }
+
+
+@custom-variant hoverable (&:hover);
+
+@media (hover: none) {
+  .group:hover .group-hover\:grayscale-0 {
+    filter: grayscale(1);
+  }
+}

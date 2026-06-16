@@ -1,6 +1,28 @@
 import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import medeeImg from "@/assets/medee.webp";
 import { Reveal } from "./Reveal";
+
+function FeaturedGroup({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isActive, setIsActive] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => setIsActive(entry.isIntersecting && entry.intersectionRatio >= 0.4),
+      { threshold: [0.4] }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return (
+    <div ref={ref} className={`group relative ${isActive ? "is-active" : ""}`}>
+      {children}
+    </div>
+  );
+}
+
 
 export function FeaturedProject() {
   return (
@@ -13,7 +35,8 @@ export function FeaturedProject() {
           </div>
         </div>
 
-        <div className="group relative">
+              <FeaturedGroup>
+
           <div className="flex flex-col lg:flex-row gap-12">
             <motion.div
               className="lg:w-2/3"
@@ -28,7 +51,7 @@ export function FeaturedProject() {
                   alt="Medee prediction market platform interface"
                   width={1280}
                   height={768}
-                  className="w-full aspect-[16/9] object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                  className="w-full aspect-[16/9] object-cover grayscale group-hover:grayscale-0 group-[.is-active]:grayscale-0 transition-all duration-500"
                   loading="eager"
                   fetchPriority="high"
                   decoding="async"
@@ -69,7 +92,7 @@ export function FeaturedProject() {
               </div>
             </Reveal>
           </div>
-        </div>
+        </FeaturedGroup>
       </div>
     </section>
   );

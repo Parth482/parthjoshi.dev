@@ -87,7 +87,25 @@ function TiltCard({ children, className }: { children: React.ReactNode; classNam
   );
 }
 
+/** Mobile-only: marks the most-centered carousel card as active. */
+function useInViewActive(threshold = 0.55) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isActive, setIsActive] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => setIsActive(entry.isIntersecting && entry.intersectionRatio >= threshold),
+      { threshold: [threshold] }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return { ref, isActive };
+}
+
 function ProjectCard({ p }: { p: Project }) {
+
   return (
     <>
       <div className="overflow-hidden mb-6 border border-paper/10">
@@ -97,7 +115,7 @@ function ProjectCard({ p }: { p: Project }) {
           loading="lazy"
           width={1024}
           height={768}
-          className="w-full aspect-[4/3] object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+          className="w-full aspect-[4/3] object-cover grayscale group-hover:grayscale-0 group-[.is-active]:grayscale-0 transition-all duration-500"
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.5 }}
         />
@@ -132,6 +150,24 @@ function ProjectCard({ p }: { p: Project }) {
     </>
   );
 }
+
+function MobileCarouselCard({ p, cardClass }: { p: Project; cardClass: string }) {
+  const { ref, isActive } = useInViewActive(0.55);
+  return (
+    <motion.article
+      ref={ref}
+      layout
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.96 }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      className={`${cardClass} snap-center shrink-0 w-[85%] ${isActive ? "is-active" : ""}`}
+    >
+      <ProjectCard p={p} />
+    </motion.article>
+  );
+}
+
 
 export function ProjectGrid() {
   const [filter, setFilter] = useState<Filter>("All");
@@ -196,17 +232,7 @@ export function ProjectGrid() {
             >
               <AnimatePresence mode="popLayout">
                 {visible.map((p) => (
-                  <motion.article
-                    key={p.title}
-                    layout
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.96 }}
-                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                    className={`${cardClass} snap-center shrink-0 w-[85%]`}
-                  >
-                    <ProjectCard p={p} />
-                  </motion.article>
+                <MobileCarouselCard key={p.title} p={p} cardClass={cardClass} />
                 ))}
               </AnimatePresence>
             </div>
