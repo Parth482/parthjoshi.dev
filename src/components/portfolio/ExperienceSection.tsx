@@ -32,7 +32,7 @@ export function ExperienceSection() {
                     <p className="font-medium text-ink/60">Software Developer Intern — Remote</p>
                   </div>
                   <span className="text-[10px] font-bold font-heading bg-hazard-yellow px-2 py-1 uppercase tracking-widest">
-                    Oct 2025 — Present
+                    Oct 2025 — May 2026
                   </span>
                 </div>
                 <ul className="space-y-3 text-sm leading-relaxed text-ink/80">
